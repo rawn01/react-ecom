@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
-import CustomButton from '../custom-button/CustomButton';
-import FormInput from '../form-input/FormInput';
+import React, { Component } from "react";
+import CustomButton from "../custom-button/CustomButton";
+import FormInput from "../form-input/FormInput";
+import { signInWithGoogle } from "../../firebase/firebase";
 import "./Signin.scss";
 
 class Signin extends Component {
@@ -9,7 +10,7 @@ class Signin extends Component {
     this.state = {
       email: "",
       password: "",
-    }
+    };
   }
 
   handleSubmit = (e) => {
@@ -17,16 +18,16 @@ class Signin extends Component {
 
     this.setState({
       email: "",
-      password: ""
-    })
-  }
+      password: "",
+    });
+  };
 
   handleChange = (e) => {
     const { value, name } = e.target;
 
     this.setState({
-      [name]: value
-    })
+      [name]: value,
+    });
   };
 
   render() {
@@ -36,28 +37,34 @@ class Signin extends Component {
         <span>Sign in with your email and password</span>
 
         <form onSubmit={this.handleSubmit}>
-          <FormInput 
-            type={"email"} 
+          <FormInput
+            type={"email"}
             name={"email"}
             value={this.state.email}
             onChange={this.handleChange}
             label={"Email"}
             required
           />
-          <FormInput 
+          <FormInput
             type={"password"}
             name={"password"}
             value={this.state.password}
             onChange={this.handleChange}
             label={"Password"}
             required
-          />          
-          <CustomButton type="submit">
-            Sign in
-          </CustomButton>
+          />
+          <div className="buttons">
+            <CustomButton type="submit">Sign in</CustomButton>
+            <CustomButton
+              onClick={signInWithGoogle}
+              classNames="google-sign-in"
+            >
+              Google Sign in
+            </CustomButton>
+          </div>
         </form>
       </div>
-    )
+    );
   }
 }
 
