@@ -52,4 +52,10 @@ const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
   'prompt': 'select_account'
 });
-export const signInWithGoogle = () => signInWithPopup(auth, provider);
+export const signInWithGoogle = async () => {
+  try {
+    await signInWithPopup(auth, provider)
+  } catch(ex) {
+    console.log("ex", ex);
+  }
+};
