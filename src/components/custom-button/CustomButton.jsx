@@ -3,7 +3,7 @@ import "./CustomButton.scss";
 
 const CustomButton = (props) => {
   const {
-    type,
+    type = "button",
     onClick,
     classNames=""
   } = props;
