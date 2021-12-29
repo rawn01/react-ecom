@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import logo from "../../images/crown.svg";
 import { auth } from "../../firebase/firebase";
 import "./Header.scss";
@@ -36,4 +37,16 @@ const Header = (props) => {
   );
 };
 
-export default Header;
+function mapStateToProps(state) {
+  return {
+    user: state.user.currentUser
+  }
+}
+
+function mapDispatchToProps() {
+  return {
+
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
