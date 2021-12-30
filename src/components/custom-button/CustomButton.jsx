@@ -5,12 +5,13 @@ const CustomButton = (props) => {
   const {
     type = "button",
     onClick,
-    classNames=""
+    classNames="",
+    inverted=false
   } = props;
 
   return (
     <button 
-      className={`custom-button ${classNames}`}
+      className={`custom-button ${classNames} ${inverted ? "inverted" : ""}`}
       onClick={onClick}
       type={type}
     >
