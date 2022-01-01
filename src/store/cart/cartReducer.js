@@ -1,7 +1,9 @@
-import { TOGGLE_CART } from "../actionEnum";
+import { ADD_TO_CART, TOGGLE_CART } from "../actionEnum";
+import { addItemToCart } from "./cartUtil";
 
 const initialState = {
-  showCart: false
+  showCart: false,
+  cartItems: []
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -10,6 +12,12 @@ const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         showCart: !state.showCart
+      };
+    
+    case ADD_TO_CART: 
+      return {
+        ...state,
+        cartItems: addItemToCart(state.cartItems, action.payload)
       }
     default: 
       return state;
