@@ -36,7 +36,7 @@ class Header extends React.Component {
               Sign in
             </Link>
           )}
-          {this.props.user && <CartIcon toggleCart={this.props.toggleCart} />}
+          {<CartIcon toggleCart={this.props.toggleCart} />}
         </div>
 
         {this.props.showCart && <CartDropdown />}

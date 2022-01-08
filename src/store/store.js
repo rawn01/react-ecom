@@ -1,8 +1,9 @@
 import { createStore, applyMiddleware, compose } from "redux";
-import logger from "redux-logger";
+// import logger from "redux-logger";
 import rootReducer from "./rootReducer";
 
-const middlewares = [logger];
+// const middlewares = [logger];
+const middlewares = [];
 
 // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 
