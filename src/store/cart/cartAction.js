@@ -1,4 +1,4 @@
-import { ADD_TO_CART, TOGGLE_CART, REMOVE_FROM_CART } from "../actionEnum";
+import { ADD_TO_CART, TOGGLE_CART, CLEAR_ITEM_FROM_CART } from "../actionEnum";
 
 export const toggleCart = () => {
   return {
@@ -13,9 +13,9 @@ export const addToCart = (payload) => {
   };
 }
 
-export const removeFromCart = (payload) => {
+export const clearItemFromCart = (payload) => {
   return {
-    type: REMOVE_FROM_CART,
+    type: CLEAR_ITEM_FROM_CART,
     payload
   };
 }
