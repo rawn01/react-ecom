@@ -1,19 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addToCart } from '../../store/cart/cartAction';
+import { addToCart, removeFromCart } from '../../store/cart/cartAction';
 
 import "./CheckoutItem.scss";
 
-const CheckoutItem = ({ item }) => {
+const CheckoutItem = ({ item, removeFromCart }) => {
   return (
     <div className="checkout-item">
       <div className="image-container">
         <img alt="Item" src={item.imageUrl} />
       </div>
       <span className="name">{item.name}</span>
-      <span className="quantity">{item.quantity}</span>
+      <span className="quantity">
+        <div className="arrow">&#10094;</div>
+        <span className="value">{item.quantity}</span>
+        <div className="arrow">&#10095;</div>
+      </span>
       <span className="price">{item.price}</span>
-      <div className="remove-button">&#10005;</div>
+      <div 
+        className="remove-button"
+        onClick={() => removeFromCart(item)}
+      >
+        &#10005;
+      </div>
     </div>
   );
 };
@@ -26,7 +35,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addToCart: (item) => addToCart(item)
+    addToCart: (item) => dispatch(addToCart(item)),
+    removeFromCart: (item) => dispatch(removeFromCart(item))
   };
 }
 

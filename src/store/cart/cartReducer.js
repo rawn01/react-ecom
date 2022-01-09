@@ -1,5 +1,5 @@
-import { ADD_TO_CART, TOGGLE_CART } from "../actionEnum";
-import { addItemToCart } from "./cartUtil";
+import { ADD_TO_CART, REMOVE_FROM_CART, TOGGLE_CART } from "../actionEnum";
+import { addItemToCart, removeItemFromCart } from "./cartUtil";
 
 const initialState = {
   showCart: false,
@@ -18,6 +18,12 @@ const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         cartItems: addItemToCart(state.cartItems, action.payload)
+      }
+
+    case REMOVE_FROM_CART: 
+      return {
+        ...state,
+        cartItems: removeItemFromCart(state.cartItems, action.payload)
       }
 
     default: 
