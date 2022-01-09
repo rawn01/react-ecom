@@ -14,6 +14,13 @@ export const selectItemsCount = createSelector(
   }, 0),
 );
 
+export const selectCartTotal = createSelector(
+  [selectCartItems],
+  (cartItems) => cartItems.reduce((accumulatedQuantity, item) => {
+    return accumulatedQuantity + (item.quantity * item.price)
+  }, 0),
+)
+
 export const addItemToCart = (cartItems, cartItemToAdd) => {
   const cartItemExist = cartItems.find(
     (item) => item.id === cartItemToAdd.id
