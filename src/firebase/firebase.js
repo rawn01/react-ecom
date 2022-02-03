@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import { getFirestore, doc, getDoc, setDoc, collection, writeBatch } from "firebase/firestore";
 
 // import firebase from 'firebase/compat/app';
 // import 'firebase/compat/firestore';
@@ -45,6 +45,21 @@ export const createUserProfileDocument = async (userAuth, additionData) => {
   return userRef;
 };
 
+// To add data to firestore once
+export const addCollectionAndDocs = async (collectionKey, objectsToAdd) => {
+  const collectionRef = collection(db, collectionKey);
+  
+  // So that it doesn't fail halfway (sort of like transactions)
+  const batch = writeBatch(db);
+
+  objectsToAdd.forEach((item) => {
+    const newDocRef = doc(collectionRef);
+    batch.set(newDocRef, item);
+  });
+  
+  await batch.commit();
+}
+
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
 export const db = getFirestore(app);
@@ -58,4 +73,26 @@ export const signInWithGoogle = async () => {
   } catch(ex) {
     console.log("ex", ex);
   }
+};
+
+export const getCollections = () => collection(db, "collections");
+
+export const convertCollectionsToMap = (collections) => {
+  const transformedCollection = collections.docs.map((doc) => {
+    const { title, items } = doc.data();
+
+    return {
+      id: doc.id,
+      title,
+      routeName: encodeURI(title.toLowerCase()),
+      items,
+    }
+  })
+
+  const collectionMap = transformedCollection.reduce((acc, doc) => {
+    acc[doc.title.toLowerCase()] = doc;
+    return acc;
+  }, {})
+
+  return collectionMap;
 };

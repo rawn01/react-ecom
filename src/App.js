@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { setCurrentUser } from './store/user/userAction';
 import CheckoutPage from './pages/checkout/CheckoutPage';
 import './App.css';
+// import { selectCollectionsArray } from './store/shop/shopUtil';
 
 class App extends React.Component {
   constructor(props) {
@@ -29,6 +30,15 @@ class App extends React.Component {
       } else {
         setCurrentUser(userAuth);
       }
+
+      // addCollectionAndDocs - see firebase util file
+      // Just to add data to firestore once
+      // addCollectionAndDocs('collections', this.props.collectionsArray.map((collection) => {
+      //   return {
+      //     title: collection.title,
+      //     items: collection.items
+      //   }
+      // }))
     });
   }
 
@@ -42,7 +52,7 @@ class App extends React.Component {
         <Header />
         <Switch>
           <Route exact path="/" component={Homepage} />
-          <Route exact path="/shop" component={Shop} />
+          <Route path="/shop" component={Shop} />
           <Route exact path="/signin" render={() => this.props.currentUser ? <Redirect to="/" /> : <SigninAndSignup />} />
           <Route exact path="/checkout" component={CheckoutPage} />        
         </Switch>
@@ -53,7 +63,9 @@ class App extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    currentUser: state.user.currentUser
+    currentUser: state.user.currentUser,
+    // @ts-ignore - for adding data once to firestore (see 34)
+    // collectionsArray: selectCollectionsArray(state)
   };
 }
 

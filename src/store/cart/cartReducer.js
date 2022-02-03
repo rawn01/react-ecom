@@ -3,10 +3,11 @@ import { addItemToCart, clearItemFromCart, removeItemFromCart } from "./cartUtil
 
 const initialState = {
   showCart: false,
-  cartItems: []
+  cartItems: JSON.parse(localStorage.getItem("cartItems")) || []
 };
 
 const cartReducer = (state = initialState, action) => {
+  let items = null;
   switch(action.type) {
     case TOGGLE_CART:
       return {
@@ -15,18 +16,27 @@ const cartReducer = (state = initialState, action) => {
       };
     
     case ADD_TO_CART: 
+      items = addItemToCart(state.cartItems, action.payload);
+      localStorage.setItem("cartItems", JSON.stringify(items));
+
       return {
         ...state,
-        cartItems: addItemToCart(state.cartItems, action.payload)
+        cartItems: items
       }
 
     case CLEAR_ITEM_FROM_CART: 
+      items = clearItemFromCart(state.cartItems, action.payload);
+      localStorage.setItem("cartItems", JSON.stringify(items));
+
       return {
         ...state,
         cartItems: clearItemFromCart(state.cartItems, action.payload)
       }
 
     case REMOVE_FROM_CART: 
+      items = removeItemFromCart(state.cartItems, action.payload);
+      localStorage.setItem("cartItems", JSON.stringify(items));
+
       return {
         ...state,
         cartItems: removeItemFromCart(state.cartItems, action.payload)
