@@ -10,7 +10,7 @@ const selectCollections = createSelector(
 
 export const selectCollectionsArray = createSelector(
   [selectCollections],
-  (collections) => Object.keys(collections).map((key) => collections[key])
+  (collections) => collections ? Object.keys(collections).map((key) => collections[key]) : []
 )
 
 export const selectCollection = createSelector(
@@ -19,7 +19,7 @@ export const selectCollection = createSelector(
     selectCollectionId
   ],
   (collections, paramId) => {
-    return collections[paramId]; 
+    return collections ? collections[paramId] : null; 
   }
 )
 
@@ -29,5 +29,4 @@ export const selectCollection = (urlParam) => createSelector(
   (collections) => {
     return collections.find((collection) => collection.id === COLLECTION_ID_MAP[urlParam])
   }
-);
-*/
+); */
