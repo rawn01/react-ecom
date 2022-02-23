@@ -36,6 +36,10 @@ class Shop extends React.Component {
       </div>
     )
   }
+
+  componentWillUnmount() {
+    console.log("UNMOUNT11312312");
+  }
 } 
 
 function mapStateToProps(state) {

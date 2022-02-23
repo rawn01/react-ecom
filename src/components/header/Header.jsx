@@ -21,6 +21,9 @@ class Header extends React.Component {
         </Link>
   
         <div className="options">
+          <Link to="/sub" className="option">
+            Sub
+          </Link>
           <Link to="/shop" className="option">
             Shop
           </Link>

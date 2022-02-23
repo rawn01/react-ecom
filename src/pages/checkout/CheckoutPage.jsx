@@ -6,6 +6,11 @@ import { selectCartTotal } from '../../store/cart/cartUtil';
 import "./CheckoutPage.scss";
 
 const CheckoutPage = (props) => {
+  React.useEffect(() => {
+    return () => {
+      console.log('CHeckout page UNMOUNT');
+    };
+  }, []);
   return (
     <div className="checkout-page">
       <div className="checkout-header">
